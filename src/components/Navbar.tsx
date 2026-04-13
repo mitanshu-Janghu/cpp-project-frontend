@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,10 +18,8 @@ const Navbar = () => {
   }, []);
 
   const links = [
-    { label: "Features", href: "#features" },
-    { label: "Benchmarks", href: "#benchmarks" },
-    { label: "Architecture", href: "#architecture" },
-    { label: "Models", href: "#models" },
+    { label: "Home", href: "/" },
+    { label: "Leaderboard", href: "/leaderboard" },
   ];
 
   return (
@@ -30,44 +30,44 @@ const Navbar = () => {
       />
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled ? "glass-strong shadow-lg" : "bg-transparent"
+          scrolled ? "glass-nav" : "bg-transparent"
         }`}
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="container mx-auto flex items-center justify-between h-16 px-6">
-          <a href="#" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center glow-box">
-              <span className="text-primary font-bold text-sm">NC</span>
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05]">
+              <span className="text-sm font-semibold tracking-[-0.04em] text-white">NC</span>
             </div>
-            <span className="font-semibold text-foreground text-lg">NeuroCore</span>
-          </a>
+            <div>
+              <span className="block text-sm font-semibold tracking-[-0.03em] text-white">NeuroCore</span>
+            </div>
+          </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="glass-chip hidden items-center gap-2 rounded-full px-2 py-2 md:flex">
             {links.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                to={link.href}
+                className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                  location.pathname === link.href
+                    ? "bg-white/[0.14] text-white"
+                    : "text-white/56 hover:bg-white/[0.06] hover:text-white"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="flex items-center gap-3">
             <a
-              href="#github"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
+              href="/#workbench"
+              className="inline-flex items-center justify-center rounded-full border border-primary/25 bg-primary px-5 py-2.5 text-sm font-medium text-background transition-transform hover:scale-[1.02]"
             >
-              GitHub
-            </a>
-            <a
-              href="#"
-              className="text-sm px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
-            >
-              Get Started
+              Train Now
             </a>
           </div>
         </div>

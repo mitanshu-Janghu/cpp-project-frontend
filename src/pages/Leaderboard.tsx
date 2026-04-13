@@ -1,15 +1,13 @@
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
 import MLWorkbenchSection from "@/components/MLWorkbenchSection";
 
-const Index = () => {
+const Leaderboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <HeroSection />
       <MLWorkbenchSection />
     </div>
   );
 };
 
-export default Index;
+export default Leaderboard;
